@@ -24,16 +24,11 @@ module Pod
         Longer description of cocoapods-label.
       DESC
 
-      self.arguments = 'NAME'
-
-      def initialize(argv)
-        @name = argv.shift_argument
-        super
-      end
 
       def validate!
         super
-        help! 'A Pod name is required.' unless @name
+
+        help! 'No Podfile found.' unless File.exist?('Podfile')
       end
 
       def run
