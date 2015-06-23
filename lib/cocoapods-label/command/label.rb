@@ -32,7 +32,15 @@ module Pod
       end
 
       def run
-        UI.puts "Add your implementation for the cocoapods-label plugin in #{__FILE__}"
+        podfile = Pod::Podfile.from_file('Podfile')
+        sources = podfile.sources.map { |src| Pod::SourcesManager.find_or_create_source_with_url(src)  }
+        sources = Pod::SourcesManager.all if sources.count == 0
+        podfile.dependencies.each do |dependency|
+          version = sources.first.set(dependency.name).versions.first.to_s
+          spec = sources.first.specification(dependency.name, version)
+          puts spec.summary
+
+        end
       end
     end
   end
