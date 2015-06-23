@@ -33,13 +33,12 @@ module Pod
 
       def run
         podfile = Pod::Podfile.from_file('Podfile')
-        sources = podfile.sources.map { |src| Pod::SourcesManager.find_or_create_source_with_url(src)  }
-        sources = Pod::SourcesManager.all if sources.count == 0
-        podfile.dependencies.each do |dependency|
-          version = sources.first.set(dependency.name).versions.first.to_s
-          spec = sources.first.specification(dependency.name, version)
-          puts spec.summary
+        sources = podfile.sources.map { |src| Pod::SourcesManager.find_or_create_source_with_url(src) }
+        sources = Pod::SourcesManager.all if sources.empty?
 
+        podfile.dependencies.each do |dependency|
+          spec = sources.first.set(dependency.name).specification
+          puts spec.summary
         end
       end
     end
