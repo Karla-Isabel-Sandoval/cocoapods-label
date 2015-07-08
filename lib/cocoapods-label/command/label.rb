@@ -1,3 +1,5 @@
+require 'yaml'
+
 module Pod
   class Command
     # This is an example of a cocoapods plugin adding a top-level subcommand
@@ -43,6 +45,8 @@ module Pod
             puts spec.name + ' ' + spec.summary
           end
         end
+
+        File.open('Podfile', 'w') { |file| file.write(podfile.to_yaml) }
       end
     end
   end
