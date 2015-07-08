@@ -37,8 +37,11 @@ module Pod
         sources = Pod::SourcesManager.all if sources.empty?
 
         podfile.dependencies.each do |dependency|
-          spec = sources.first.set(dependency.name).specification
-          puts spec.summary
+          sources.each do |source|
+            next if source.versions(dependency.name).nil?
+            spec = source.set(dependency.name).specification
+            puts spec.name + ' ' + spec.summary
+          end
         end
       end
     end
