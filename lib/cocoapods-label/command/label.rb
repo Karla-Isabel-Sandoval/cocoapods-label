@@ -26,15 +26,25 @@ module Pod
         Longer description of cocoapods-label.
       DESC
 
+      def initialize(argv)
+        super
+
+        @config = Pod::Config.instance
+      end
+
+      def podfile_path
+        @config.podfile_path_in_dir(Pathname.new(Dir.pwd))
+      end
 
       def validate!
         super
 
-        help! 'No Podfile found.' unless File.exist?('Podfile')
+        help! 'No Podfile found.' unless File.exist?(podfile_path)
       end
 
       def run
-        podfile = Pod::Podfile.from_file('Podfile')
+
+        podfile = Pod::Podfile.from_file(podfile_path)
         sources = podfile.sources.map { |src| Pod::SourcesManager.find_or_create_source_with_url(src) }
         sources = Pod::SourcesManager.all if sources.empty?
 
@@ -46,7 +56,7 @@ module Pod
           end
         end
 
-        File.open('Podfile', 'w') { |file| file.write(podfile.to_yaml) }
+        File.open(podfile_path, 'w') { |file| file.write(podfile.to_yaml) }
       end
     end
   end
