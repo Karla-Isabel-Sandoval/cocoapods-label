@@ -56,7 +56,8 @@ module Pod
           end
         end
 
-        File.open(podfile_path, 'w') { |file| file.write(podfile.to_yaml) }
+        File.unlink(podfile_path)
+        File.open('CocoaPods.podfile.yaml', 'w') { |file| file.write(podfile.to_yaml) }
       end
     end
   end
