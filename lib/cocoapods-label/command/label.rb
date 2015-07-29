@@ -48,16 +48,18 @@ module Pod
         sources = podfile.sources.map { |src| Pod::SourcesManager.find_or_create_source_with_url(src) }
         sources = Pod::SourcesManager.all if sources.empty?
 
+        File.unlink(podfile_path)
+        File.open('CocoaPods.podfile.yaml', 'w') { |file| file.write(podfile.to_yaml) }
+        content = File.read("CocoaPods.podfile.yaml")
         podfile.dependencies.each do |dependency|
           sources.each do |source|
             next if source.versions(dependency.name).nil?
             spec = source.set(dependency.name).specification
-            puts spec.name + ' ' + spec.summary
+            content = content.gsub(/(^.*)(- #{spec.name})/, "\\1# #{spec.summary}\n\\1\\2")
+
           end
         end
-
-        File.unlink(podfile_path)
-        File.open('CocoaPods.podfile.yaml', 'w') { |file| file.write(podfile.to_yaml) }
+        File.open('CocoaPods.podfile.yaml', 'w') { |file| file.write(content) }
       end
     end
   end
