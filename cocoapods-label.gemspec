@@ -6,11 +6,11 @@ require 'cocoapods-label/gem_version.rb'
 Gem::Specification.new do |spec|
   spec.name          = 'cocoapods-label'
   spec.version       = CocoapodsLabel::VERSION
-  spec.authors       = ['Karla-Sandoval-Sandoval']
-  spec.email         = ['k.isabel.sandoval@gmail.com']
-  spec.description   = %q{A short description of cocoapods-label.}
-  spec.summary       = %q{A longer description of cocoapods-label.}
-  spec.homepage      = 'https://github.com/EXAMPLE/cocoapods-label'
+  spec.authors       = ['Karla-Sandoval','Emma Koszinowski']
+  spec.email         = ['k.isabel.sandoval@gmail.com','emkosz@gmail.com']
+  spec.description   = %q{annotate your podfile with descriptions for each pod.}
+  spec.summary       = %q{annotate your podfile with descriptions for each pod.}
+  spec.homepage      = 'https://github.com/Karla-Isabel-Sandoval/cocoapods-label'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files`.split($/)
