@@ -15,6 +15,7 @@ require 'cocoapods_plugin'
 
 #-----------------------------------------------------------------------------#
 
+fixture_path = ROOT + 'spec/fixtures'
 module Pod
 
   # Disable the wrapping so the output is deterministic in the tests.
