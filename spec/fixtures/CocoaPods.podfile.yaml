@@ -5,4 +5,4 @@ target_definitions:
   dependencies:
   # A simple, intuitive audio framework for iOS and OSX useful for anyone doing audio processing and/or audio-based visualizations.
   - EZAudio:
-    - "~> 4.0"
+    - ~> 4.0
